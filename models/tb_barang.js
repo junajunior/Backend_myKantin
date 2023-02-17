@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   tb_barang.init({
     namaBarang: DataTypes.STRING,
-    stockBarang: DataTypes.INTEGER
+    stockBarang: DataTypes.INTEGER,
+    hargaBarang: DataTypes.DOUBLE
   }, {
     sequelize,
     modelName: 'tb_barang',
