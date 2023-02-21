@@ -14,6 +14,12 @@ module.exports = {
       penghasilanUang: {
         type: Sequelize.DOUBLE
       },
+      hargaJual: {
+        type: Sequelize.DOUBLE
+      },
+      tanggalTransaksi: {
+        type: Sequelize.DATE
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -20,6 +20,9 @@ module.exports = {
       password_confirmation: {
         type: Sequelize.STRING
       },
+      role: {
+        type: Sequelize.ENUM('admin' , 'member'),
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
