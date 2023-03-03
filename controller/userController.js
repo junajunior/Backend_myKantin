@@ -3,16 +3,17 @@ const bcrypt = require("bcrypt");
 
 const userRegister = async (req, res) => {
   try {
-    let body = req.body;
 
+    let body = req.body;
     if(body.password_confirmation !== body.password) {
-      return res.status(201).json({
+      return res.status(402).json({
         status: "gagal",
         msg: "password anda tidak sama"
       });
     }
 
     body.password = await bcrypt.hashSync(body.password, 10);
+    body.password_confirmation = await bcrypt.hashSync(body.password_confirmation, 10);
     const users = await ModelUser.create(body);
     console.log(users);
 
@@ -32,7 +33,7 @@ const userRegister = async (req, res) => {
 const userShowData = async (req, res) => {
   try {
     const dataUser = await ModelUser.findAll({
-      attributes: ["id" , "email" , "nama", ]
+      attributes: ["id" , "email" , "nama",]
     });
     return res.json({
       status: "Berhasil",
@@ -50,10 +51,10 @@ const userShowData = async (req, res) => {
 
 const userDetail = async (req, res) => {
   try {
-    // const { id } = req.params;
+    const { id } = req.params;
     const dataDetail = await ModelUser.findByPk(id);
     if (dataDetail === null) {
-      return res.json({
+      return res.status(402).json({
         status: "Gagal",
         msg: "Data user ini tidak ditemukan",
       });
@@ -81,7 +82,7 @@ const userDelete = async (req, res) => {
       },
     });
     if (dataDetail === 0) {
-      return res.json({
+      return res.status(402).json({
         status: "Fail",
         msg: "Data User Tidak Ditemukan",
       });
@@ -105,7 +106,7 @@ const userUpdate = async (req, res) => {
     const dataDetail = await ModelUser.findByPk(id);
 
     if (dataDetail === null) {
-      return res.json({
+      return res.status(402).json({
         status: "Gagal",
         msg: "Data User Tidak Ditemukan",
       });
@@ -118,13 +119,13 @@ const userUpdate = async (req, res) => {
         },
       }
     );
-    return res.json({
+    return res.status(200).json({
       status: "Berhasil",
       msg: "User Berhasil Diupdate",
     });
   } catch (error) {
     console.log(error);
-    res.status(403).json({
+    res.status(422).json({
       status: "Gagall",
       msg: "Ada Kesalahan di update user",
     });

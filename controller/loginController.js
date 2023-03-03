@@ -25,6 +25,7 @@ const login = async (req, res) => {
         msg: "maaf password anda salah",
       })
     }
+
     const token = jwt.sign(
       {
         nama: dataUser.nama,
