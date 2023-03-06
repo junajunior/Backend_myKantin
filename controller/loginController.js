@@ -45,7 +45,7 @@ const login = async (req, res) => {
     console.log(error)
     return res.json({
       status: "Fail",
-      msg: "ada kesalahan di login",
+      msg: "ada kesalahan di login anda",
     })
   }
 };

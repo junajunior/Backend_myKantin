@@ -8,14 +8,20 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      kodeBarang: {
+        type: Sequelize.INTEGER
+      },
       namaBarang: {
         type: Sequelize.STRING
       },
-      stockBarang: {
-        type: Sequelize.INTEGER
+      jenisBarang: {
+        type: Sequelize.STRING
       },
       hargaBarang: {
-        type: Sequelize.DOUBLE
+        type: Sequelize.INTEGER
+      },
+      idAdmin: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

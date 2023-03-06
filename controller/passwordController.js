@@ -18,7 +18,7 @@ const resetTokens = [];
 const sendEmail = async (to, subject, text) => {
   const transporter = nodemailer.createTransport({
     host: 'smtp.ethereal.email',
-    port: 587,
+    port: 5000,
     auth: {
       user: 'your-ethereal-email@example.com',
       pass: 'your-ethereal-email-password',
