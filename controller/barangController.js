@@ -21,7 +21,6 @@ const createBarang = async (req, res) => {
    }
  };
 
- 
 const ShowDataBarang = async (req, res) => {
    try {
      // const { keyword} = req.query

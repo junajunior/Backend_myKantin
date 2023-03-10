@@ -15,17 +15,18 @@ router.get("/", (req, res) => {
  }); 
 
 router.post("/login" , login);
-router.get("/authme", authme),
-router.get("/adminMiddleware", adminMiddleware),
-
+router.post('/reset-password' , resetPassword)
+router.post('/forgot-password' , forgotPassword);
 router.post("/create/users", userRegister );
+router.use(adminMiddleware);
+router.get("/authme", authme)
+
 router.get("/data/users", userShowData );
 router.get('/data/users/:id' , userDetail )
 router.delete("/data/users/delete/:id", userDelete ); 
 router.put("/data/users/update/:id", userUpdate ); 
 
-router.post('/reset-password' , resetPassword)
-router.post('/forgot-password' , forgotPassword);
+
 
 router.post("/create/barang" , createBarang);
 router.get("/data/barang" , ShowDataBarang);

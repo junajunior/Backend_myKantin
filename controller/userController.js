@@ -25,7 +25,7 @@ const userRegister = async (req, res) => {
     console.log(error);
     res.status(403).json({
       status: "Fail",
-      msg: "ada kesalahan di register",
+      msg: "ada kesalahan di register , silahkan coba lagi",
     });
   }
 };

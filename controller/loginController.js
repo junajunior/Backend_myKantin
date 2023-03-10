@@ -39,6 +39,7 @@ const login = async (req, res) => {
     return res.json({
       status: "Berhasil",
       msg: "Selamat anda berhasil login",
+      user: dataUser,
       token: token,
     });
   } catch (error) {
