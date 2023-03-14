@@ -40,7 +40,7 @@ const showDataTransaksiPerHari = async (req, res) => {
 const updateTransaksiPerHari = async (req, res) => {
    try {
       const { id } = req.params;
-      const { pemasukan } = req.body;
+      const { pemasukan , keterangan } = req.body;
       const dataTransaksiPerHari = await ModelTransaksiPerHari.findByPk(id);
       if (dataTransaksiPerHari === null) {
         return res.status(402).json({
@@ -49,7 +49,7 @@ const updateTransaksiPerHari = async (req, res) => {
         });
       }
       await ModelTransaksiPerHari.update(
-        { pemasukan: pemasukan },
+        { pemasukan: pemasukan , keterangan : keterangan },
         {
           where: {
             id: id,

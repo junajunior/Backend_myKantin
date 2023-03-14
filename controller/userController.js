@@ -1,5 +1,53 @@
 const ModelUser = require("../models").user;
 const bcrypt = require("bcrypt");
+const dotenv = require("dotenv");
+var jwt = require("jsonwebtoken");
+dotenv.config();
+
+const login = async (req, res) => {
+  try {
+    const { nama } = req.body;
+    const dataUser = await ModelUser.findOne({
+      where: {
+        nama: nama,
+      },
+    });
+    if (dataUser === null) {
+      return res.status(422).json({
+        status: "Gagal",
+        msg: "anda belum register, silahkan register terlebih dahulu",
+      });
+    }
+    const check = bcrypt.compareSync(req.body.password, dataUser.password)
+    if (!check) {
+      return res.json({
+        status: "Gagal",
+        msg: "maaf password anda salah",
+      })
+    }
+    const token = jwt.sign(
+      {
+        nama: dataUser.nama,
+      },
+      process.env.JWT_ACCESS_TOKEN,
+      {
+        expiresIn: "1d",
+      }
+    );
+    return res.json({
+      status: "Berhasil",
+      msg: "Selamat anda berhasil login",
+      user: dataUser,
+      token: token,
+    });
+  } catch (error) {
+    console.log(error)
+    return res.json({
+      status: "Fail",
+      msg: "ada kesalahan di login anda",
+    })
+  }
+};
 
 const userRegister = async (req, res) => {
   try {
@@ -132,6 +180,6 @@ const userUpdate = async (req, res) => {
   }
 };
 
-module.exports = { userDelete, userDetail, userRegister, userUpdate, userShowData };
+module.exports = { userDelete, userDetail, userRegister, userUpdate, userShowData , login };
 
 

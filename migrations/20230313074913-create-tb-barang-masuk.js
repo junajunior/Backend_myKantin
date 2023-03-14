@@ -8,8 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      idBarangMasuk: { 
-        
+      idBarangMasuk: {
         type: Sequelize.INTEGER
       },
       kodeBarang: {
@@ -19,7 +18,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       expiredBarang: {
-        type: Sequelize.STRING
+        type: Sequelize.DATE
       },
       tanggalMasuk: {
         type: Sequelize.DATE

@@ -46,7 +46,7 @@ const ShowDataBarang = async (req, res) => {
        msg: "Ada Kesalahan di data daftar barang",
      });
    }
- };
+};
 
  const updateBarang = async (req, res) => {
   try {
@@ -104,7 +104,7 @@ const ShowDataBarang = async (req, res) => {
        msg: "Ada Kesalahan di delete barang",
      });
    }
- };
+};
 
  
 const createBarangMasuk = async (req, res) => {
@@ -128,9 +128,8 @@ const createBarangMasuk = async (req, res) => {
 const showDataBarangMasuk = async (req, res) => {
   try {
      const dataBarangMasuk = await ModelBarangMasuk.findAll({
-       attributes: ["id", "idBarangMasuk" , "kodeBarang" , "satuanBarang" , "expiredBarang" , "tanggalMasuk" , "keterangan" , "idAdmin" ],
+       attributes: ["idBarangMasuk" , "kodeBarang" , "satuanBarang" , "expiredBarang" , "tanggalMasuk" , "keterangan" , "idAdmin" ],
      });
-    
      return res.json({
        status: "Berhasil",
        msg: "Berikut Daftar barang yang masuk",
@@ -226,7 +225,7 @@ const showDataPermintaanBarang = async (req, res) => {
   try {
     // const { keyword} = req.query
     const dataRequestBarangHabis = await ModelRequestBarangHabis.findAll({
-      attributes: ["id" , "idPermintaan" , "kodeBarang" ,"keterangan" , "tanggalPermintaan" , "idAdmin"]
+      attributes: ["id" ,"idPermintaan" , "kodeBarang" ,"keterangan" , "tanggalPermintaan" , "idAdmin"]
     });
     return res.json({
       status: "Berhasil",
