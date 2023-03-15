@@ -15,6 +15,7 @@ router.get("/", (req, res) => {
  }); 
 
 router.post("/login" , login);
+
 router.post('/reset-password' , resetPassword)
 router.post('/forgot-password' , forgotPassword);
 

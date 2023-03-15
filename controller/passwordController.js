@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Database mockup
 const users = [
-  { username: 'juna', email: 'juna@gmail.com', password: 'password1' },
+  { nama: 'arjuna', email: 'juna@gmail.com', password: '1234567890' },
 ];
 
 // Store reset tokens in memory (you should use a database in production)
@@ -17,11 +17,11 @@ const resetTokens = [];
 // Send email function using nodemailer
 const sendEmail = async (to, subject, text) => {
   const transporter = nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
+    host: 'juna@gmail.com',
     port: 5000,
     auth: {
-      user: 'your-ethereal-email@example.com',
-      pass: 'your-ethereal-email-password',
+      user: 'arjuna',
+      pass: '1234567890',
     },
   });
 
@@ -31,7 +31,6 @@ const sendEmail = async (to, subject, text) => {
     subject,
     text,
   };
-
   const info = await transporter.sendMail(message);
   console.log(`Email sent: ${info.messageId}`);
 };
@@ -42,8 +41,8 @@ const forgotPassword = async (req , res ) => {
       const { email } = req.body;
     
       const user = users.find((u) => u.email === email);
-    
       if (!user) {
+        console.log();
         return res.status(400).send('User not found');
       }
     
