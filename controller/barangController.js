@@ -128,7 +128,7 @@ const createBarangMasuk = async (req, res) => {
 const showDataBarangMasuk = async (req, res) => {
   try {
      const dataBarangMasuk = await ModelBarangMasuk.findAll({
-       attributes: ["idBarangMasuk" , "kodeBarang" , "satuanBarang" , "expiredBarang" , "tanggalMasuk" , "keterangan" , "idAdmin" ],
+       attributes: ["id" , "idBarangMasuk" , "kodeBarang" , "satuanBarang" , "expiredBarang" , "tanggalMasuk" , "keterangan" , "idAdmin" ],
      });
      return res.json({
        status: "Berhasil",

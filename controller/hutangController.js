@@ -25,7 +25,7 @@ const createHutang = async (req, res) => {
    try {
      // const { keyword} = req.query
      const dataHutang = await ModelHutang.findAll({
-       attributes: ["idHutang" , "namaPenghutang" , "jumlahHutang"]
+       attributes: ["id" ,"idHutang" , "namaPenghutang" , "jumlahHutang"]
      });
      return res.json({
        status: "Berhasil",
@@ -123,7 +123,7 @@ const createHutang = async (req, res) => {
    try {
      // const { keyword} = req.query
      const dataDetailHutang = await ModelDetailHutang.findAll({
-       attributes: ["idDetailHutang" , "idHutang" ,"tanggalHutang" ,"idAdmin"]
+       attributes: ["id" ,"idDetailHutang" , "idHutang" ,"tanggalHutang" ,"idAdmin"]
      });
      return res.json({
        status: "Berhasil",
@@ -162,7 +162,7 @@ const createHutang = async (req, res) => {
    try {
      // const { keyword} = req.query
      const dataDetailBayarHutang = await ModelBayarHutang.findAll({
-       attributes: ["idBayar" , "idHutang" , "jumlahBayar" ,"tanggalBayar", "idAdmin"]
+       attributes: ["id" ,"idBayar" , "idHutang" , "jumlahBayar" ,"tanggalBayar", "idAdmin"]
      });
      return res.json({
        status: "Berhasil",
