@@ -21,7 +21,14 @@ module.exports = {
         type: Sequelize.DATE
       },
       idAdmin: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER,
+        onDelete : "CASCADE",
+        onUpdate : "CASCADE",
+        references : {
+          model : "users",
+          key : "id",
+          as : "idAdmin"
+        }
       },
       createdAt: {
         allowNull: false,

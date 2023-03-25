@@ -1,81 +1,46 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const uuid = require('uuid');
 const nodemailer = require('nodemailer');
-
+const express = require('express');
 const app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
+const crypto = require('crypto');
+const bcrypt = require('bcrypt');
 
-// Database mockup
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: 'email_anda@gmail.com',
+    pass: 'password_anda'
+  }
+});
+
 const users = [
-  { nama: 'arjuna', email: 'juna@gmail.com', password: '1234567890' },
+  { email: 'user1@example.com', password: '$2b$10$SaEVW6U47x6nm0cbTWmcTeYz8JWfDwzz1B50pJTsLZvux8L1Q2Sm2' },
+  { email: 'user2@example.com', password: '$2b$10$mLh5gmDL8pHt4n4t3X9V7OvpkllS0y7.fDh75GQnlq3ML20t4XZ7m' }
 ];
 
-// Store reset tokens in memory (you should use a database in production)
-const resetTokens = [];
+// Generate a unique token for password reset
+function generateToken() {
+  return crypto.randomBytes(20).toString('hex');
+}
 
-// Send email function using nodemailer
-const sendEmail = async (to, subject, text) => {
-  const transporter = nodemailer.createTransport({
-    host: 'juna@gmail.com',
-    port: 5000,
-    auth: {
-      user: 'arjuna',
-      pass: '1234567890',
-    },
-  });
+// Find user by email
+function findUserByEmail(email) {
+  return users.find(user => user.email === email);
+}
 
-  const message = {
-    from: 'your-ethereal-email@example.com',
-    to,
-    subject,
-    text,
+// Send password reset email
+function sendPasswordResetEmail(user, token) {
+  const resetUrl = `http://localhost:3000/reset-password/${token}`;
+  const mailOptions = {
+    from: 'noreply@example.com',
+    to: user.email,
+    subject: 'Reset Password',
+    text: `Please click the link below to reset your password:\n${resetUrl}`
   };
-  const info = await transporter.sendMail(message);
-  console.log(`Email sent: ${info.messageId}`);
-};
-
-// Forgot password endpoint
-const forgotPassword = async (req , res ) => {
-   {
-      const { email } = req.body;
-    
-      const user = users.find((u) => u.email === email);
-      if (!user) {
-        console.log();
-        return res.status(400).send('User not found');
-      }
-    
-      const token = uuid.v4();
-      const expirationTime = Date.now() + 60 * 60 * 1000; // Token expires in 1 hour
-    
-      resetTokens.push({
-        token,
-        email,
-        expirationTime,
-      });xampp
-    
-      const resetUrl = `https://example.com/reset-password?token=${token}`;
-      const message = `Click this link to reset your password: ${resetUrl}`;
-    
-      sendEmail(email, 'Reset your password', message)
-        .then(() => {
-          res.send('Email sent');
-        })
-        .catch((err) => {
-          console.error(err);
-          res.status(500).send('Failed to send email');
-        });
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
     }
-};
-
-// Reset password endpoint
-const resetPassword = async (req, res) => {
-   const { token, password } = req.body;
- 
-   const resetToken = resetTokens.find((t) => t.token === token);
- }
-
-
-
- module.exports = { resetPassword , forgotPassword}
+  });
+}

@@ -10,7 +10,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      tb_requestBarangHabis.belongsTo(models.user, { 
+        as: "user", 
+        foreignKey: "idAdmin" 
+      })
     }
   }
   tb_requestBarangHabis.init({
@@ -18,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     kodeBarang: DataTypes.INTEGER,
     keterangan: DataTypes.STRING,
     tanggalPermintaan: DataTypes.DATE,
-    idAdmin: DataTypes.STRING
+    idAdmin: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'tb_requestBarangHabis',

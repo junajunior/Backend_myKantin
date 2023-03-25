@@ -28,6 +28,8 @@ const login = async (req, res) => {
     const token = jwt.sign(
       {
         nama: dataUser.nama,
+        email: dataUser.email,
+        id: dataUser.id,
       },
       process.env.JWT_ACCESS_TOKEN,
       {
@@ -100,8 +102,8 @@ const userShowData = async (req, res) => {
 const userDetail = async (req, res) => {
   try {
     const { id } = req.params;
-    const dataDetail = await ModelUser.findByPk(id);
-    if (dataDetail === null) {
+    const dataDetailUser = await ModelUser.findByPk(id);
+    if (dataDetailUser === null) {
       return res.status(402).json({
         status: "Gagal",
         msg: "Data user ini tidak ditemukan",
@@ -110,7 +112,7 @@ const userDetail = async (req, res) => {
     return res.json({
       status: "Berhasil",
       msg: "Berikut ini adalah data detail dari user ini",
-      data: dataDetail,
+      data: dataDetailUser,
     });
   } catch (error) {
     console.log(error);

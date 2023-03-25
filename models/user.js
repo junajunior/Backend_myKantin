@@ -10,7 +10,22 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      user.hasOne(models.tb_barang, {
+        as: "tb_barang",
+        foreignKey: "idAdmin"
+      })
+      user.hasOne(models.tb_barangMasuk, {
+        as: "tb_barangMasuk",
+        foreignKey: "idAdmin"
+      })
+      user.hasOne(models.tb_requestBarangHabis, {
+        as: "tb_requestBarangHabis",
+        foreignKey: "idAdmin"
+      })
+      user.hasOne(models.tb_transaksiPerHari, {
+        as: "tb_transaksiPerHari",
+        foreignKey: "idAdmin"
+      })
     }
   }
   user.init({
