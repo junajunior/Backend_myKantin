@@ -1,6 +1,6 @@
 const express = require("express");
 const { createBarang, ShowDataBarang, updateBarang, deleteBarang , createBarangMasuk, updateBarangMasuk, deleteBarangMasuk, showDataBarangMasuk, createPermintaanBarang, showDataPermintaanBarang, updatePermintaanBarang, deletePermintaanBarang, ShowDataDetailBarang} = require("../controller/barangController");
-const { createHutang, showDataHutang, updateHutang, deleteHutang, showDataDetailHutang, createDetailHutang, showDataBayarHutang, createBayarHutang } = require("../controller/hutangController");
+const { createHutang, showDataHutang, updateHutang, deleteHutang, showDataDetailHutang, createDetailHutang, showDataBayarHutang, createBayarHutang, updateDetailHutang, deleteDetailHutang, updateBayarHutang, deleteBayarHutang } = require("../controller/hutangController");
 const {   } = require("../controller/passwordController");
 const { createTransaksiPerHari, showDataTransaksiPerHari, updateTransaksiPerHari, deleteTransaksiPerHari } = require("../controller/transaksiController");
 const {login , userRegister, userShowData, userDetail, userDelete, userUpdate } = require("../controller/userController");
@@ -56,10 +56,13 @@ router.delete("/delete/hutang/:id" , deleteHutang);
 
 router.post("/create/detail-hutang" , createDetailHutang);
 router.get("/data/detail-hutang" , showDataDetailHutang);
+router.put("/update/detail-hutang/:id" , updateDetailHutang);
+router.delete("/delete/detail-hutang/:id" , deleteDetailHutang);
 
 router.post("/create/bayar-hutang" , createBayarHutang);
 router.get("/data/bayar-hutang" , showDataBayarHutang);
-
+router.put("/update/bayar-hutang/:id" , updateBayarHutang);
+router.delete("/delete/bayar-hutang/:id" , deleteBayarHutang);
 
 
 

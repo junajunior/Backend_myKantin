@@ -50,7 +50,6 @@ const login = async (req, res) => {
     })
   }
 };
-
 const userRegister = async (req, res) => {
   try {
 
@@ -79,7 +78,6 @@ const userRegister = async (req, res) => {
     });
   }
 };
-
 const userShowData = async (req, res) => {
   try {
     const dataUser = await ModelUser.findAll({
@@ -98,7 +96,6 @@ const userShowData = async (req, res) => {
     });
   }
 };
-
 const userDetail = async (req, res) => {
   try {
     const { id } = req.params;
@@ -122,7 +119,6 @@ const userDetail = async (req, res) => {
     });
   }
 };
-
 const userDelete = async (req, res) => {
   try {
     const id = req.params.id;

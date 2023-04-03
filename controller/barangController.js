@@ -78,7 +78,7 @@ const ShowDataDetailBarang = async (req, res) => {
 const updateBarang = async (req, res) => {
   try {
     const { id } = req.params;
-    const { namaBarang } = req.body;
+    const { namaBarang , jenisBarang, hargaBarang,} = req.body;
     const dataDetail = await ModelBarang.findByPk(id);
     if (dataDetail === null) {
       return res.status(402).json({
@@ -87,7 +87,7 @@ const updateBarang = async (req, res) => {
       });
     }
     await ModelBarang.update(
-      { namaBarang: namaBarang },
+      { namaBarang: namaBarang , jenisBarang : jenisBarang ,hargaBarang : hargaBarang},
       {
         where: {
           id: id,
@@ -174,7 +174,7 @@ const showDataBarangMasuk = async (req, res) => {
 const updateBarangMasuk = async (req, res) => {
   try {
     const { id } = req.params;
-    const { keterangan } = req.body;
+    const { keterangan , satuanBarang, expiredBarang, tanggalMasuk,} = req.body;
     const dataBarangMasuk = await ModelBarangMasuk.findByPk(id);
     if (dataBarangMasuk === null) {
       return res.status(402).json({
@@ -183,7 +183,7 @@ const updateBarangMasuk = async (req, res) => {
       });
     }
     await ModelBarangMasuk.update(
-      { keterangan: keterangan },
+      { keterangan: keterangan , satuanBarang : satuanBarang ,expiredBarang : expiredBarang ,tanggalMasuk :tanggalMasuk },
       {
         where: {
           id: id,
@@ -272,7 +272,7 @@ const showDataPermintaanBarang = async (req, res) => {
 const updatePermintaanBarang = async (req, res) => {
   try {
     const { id } = req.params;
-    const { keterangan } = req.body;
+    const { keterangan , tanggalPermintaan } = req.body;
     const dataRequestBarangHabis = await ModelRequestBarangHabis.findByPk(id);
     if (dataRequestBarangHabis === null) {
       return res.status(402).json({
@@ -281,7 +281,7 @@ const updatePermintaanBarang = async (req, res) => {
       });
     }
     await ModelRequestBarangHabis.update(
-      { keterangan: keterangan },
+      { keterangan: keterangan , tanggalPermintaan : tanggalPermintaan },
       {
         where: {
           id: id,

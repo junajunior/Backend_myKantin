@@ -20,7 +20,6 @@ const createHutang = async (req, res) => {
     });
    }
  }
- 
  const showDataHutang = async (req, res) => {
    try {
      // const { keyword} = req.query
@@ -40,11 +39,10 @@ const createHutang = async (req, res) => {
      });
    }
  }
-
  const updateHutang = async (req, res) => {
    try {
      const { id } = req.params;
-     const { namaPenghutang , jumlahHutang } = req.body;
+     const { namaPenghutang , jumlahHutang  } = req.body;
      const dataDetail = await ModelHutang.findByPk(id);
      if (dataDetail === null) {
        return res.status(402).json({
@@ -72,7 +70,6 @@ const createHutang = async (req, res) => {
      });
    }
  };
-
   const deleteHutang = async (req, res) => {
     try {
       const id = req.params.id;
@@ -100,6 +97,7 @@ const createHutang = async (req, res) => {
     }
  };
 
+
  const createDetailHutang = async (req, res) => {
    try {
      let body = req.body;
@@ -118,7 +116,6 @@ const createHutang = async (req, res) => {
     });
    }
  }
- 
  const showDataDetailHutang = async (req, res) => {
    try {
      // const { keyword} = req.query
@@ -138,6 +135,64 @@ const createHutang = async (req, res) => {
      });
    }
  }
+ const updateDetailHutang = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {tanggalHutang} = req.body;
+    const dataDetailHutang = await ModelDetailHutang.findByPk(id);
+    if (dataDetailHutang === null) {
+      return res.status(402).json({
+        status: "Gagal",
+        msg: "Data Detail Hutang ini Tidak Ditemukan",
+      });
+    }
+    await ModelDetailHutang.update(
+      {  tanggalHutang : tanggalHutang },
+      {
+        where: {
+          id: id,
+        },
+      }
+    );
+    return res.status(200).json({
+      status: "Berhasil",
+      msg: "Detail Hutang Berhasil Diupdate",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(422).json({
+      status: "Gagall",
+      msg: "Ada Kesalahan di update Detail Hutang",
+    });
+  }
+};
+ const deleteDetailHutang = async (req, res) => {
+   try {
+     const id = req.params.id;
+     const dataDetailHutang = await ModelDetailHutang.destroy({
+       where: {
+         id: id,
+       },
+     });
+     if (dataDetailHutang === 0) {
+       return res.json({
+         status: "Gagal",
+         msg: "Data Detail Hutang Tidak Ditemukan",
+       });
+     }
+     return res.json({
+       status: "Berhasil",
+       msg: "Detail Hutang Berhasil Dihapus",
+     });
+   } catch (error) {
+     console.log(error);
+     res.status(403).json({
+       status: "Fail",
+       msg: "Ada Kesalahan di delete Detail Hutang",
+     });
+   }
+};
+
  
  const createBayarHutang = async (req, res) => {
    try {
@@ -157,7 +212,6 @@ const createHutang = async (req, res) => {
     });
    }
  }
- 
  const showDataBayarHutang = async (req, res) => {
    try {
      // const { keyword} = req.query
@@ -177,4 +231,67 @@ const createHutang = async (req, res) => {
      });
    }
  }
- module.exports = { createHutang , showDataHutang , updateHutang , deleteHutang , createDetailHutang , showDataDetailHutang , createBayarHutang , showDataBayarHutang}
+ const updateBayarHutang = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {  jumlahBayar ,tanggalBayar} = req.body;
+    const dataBayarHutang = await ModelBayarHutang.findByPk(id);
+    if (dataBayarHutang === null) {
+      return res.status(402).json({
+        status: "Gagal",
+        msg: "Data Bayar Hutang ini Tidak Ditemukan",
+      });
+    }
+    await ModelBayarHutang.update(
+      { jumlahBayar : jumlahBayar , tanggalBayar : tanggalBayar},
+      {
+        where: {
+          id: id,
+        },
+      }
+    );
+    return res.status(200).json({
+      status: "Berhasil",
+      msg: "Bayar Hutang Berhasil Diupdate",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(422).json({
+      status: "Gagall",
+      msg: "Ada Kesalahan di update Bayar Hutang",
+    });
+  }
+};
+ const deleteBayarHutang = async (req, res) => {
+   try {
+     const id = req.params.id;
+     const dataBayarHutang = await ModelBayarHutang.destroy({
+       where: {
+         id: id,
+       },
+     });
+     if (dataBayarHutang === 0) {
+       return res.json({
+         status: "Gagal",
+         msg: "Data Bayar Hutang Tidak Ditemukan",
+       });
+     }
+     return res.json({
+       status: "Berhasil",
+       msg: "Bayar Hutang Berhasil Dihapus",
+     });
+   } catch (error) {
+     console.log(error);
+     res.status(403).json({
+       status: "Fail",
+       msg: "Ada Kesalahan di delete Bayar Hutang",
+     });
+   }
+};
+
+
+
+
+
+
+module.exports = { createHutang , showDataHutang , updateHutang , deleteHutang , createDetailHutang , showDataDetailHutang , createBayarHutang , showDataBayarHutang , updateDetailHutang , deleteDetailHutang , updateBayarHutang , deleteBayarHutang}
