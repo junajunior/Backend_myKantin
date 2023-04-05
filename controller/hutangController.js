@@ -1,10 +1,14 @@
 const ModelHutang = require("../models").tb_hutang;
 const ModelDetailHutang = require("../models").tb_detailHutang;
 const ModelBayarHutang = require("../models").tb_bayarHutang;
+var jwt = require("jsonwebtoken");
 
 const createHutang = async (req, res) => {
    try {
-     let body = req.body;
+    const idAdmin = jwt.decode(req.headers.authorization.split(" ")[1]).id
+    let body = req.body;
+    body.idAdmin = idAdmin
+    
      const dataHutang = await ModelHutang.create(body);
      console.log(dataHutang);
  
@@ -24,7 +28,7 @@ const createHutang = async (req, res) => {
    try {
      // const { keyword} = req.query
      const dataHutang = await ModelHutang.findAll({
-       attributes: ["id" ,"idHutang" , "namaPenghutang" , "jumlahHutang"]
+       attributes: ["id" , "namaPenghutang" , "jumlahHutang" , "idAdmin"]
      });
      return res.json({
        status: "Berhasil",
@@ -100,7 +104,10 @@ const createHutang = async (req, res) => {
 
  const createDetailHutang = async (req, res) => {
    try {
-     let body = req.body;
+    const idHutang = jwt.decode(req.headers.authorization.split(" ")[1]).id
+    let body = req.body;
+    body.idHutang = idHutang
+    
      const dataDetailHutang = await ModelDetailHutang.create(body);
      console.log(dataDetailHutang);
  
@@ -120,7 +127,7 @@ const createHutang = async (req, res) => {
    try {
      // const { keyword} = req.query
      const dataDetailHutang = await ModelDetailHutang.findAll({
-       attributes: ["id" ,"idDetailHutang" , "idHutang" ,"tanggalHutang" ,"idAdmin"]
+       attributes: ["id" ,"tanggalHutang", "idHutang"]
      });
      return res.json({
        status: "Berhasil",
@@ -193,7 +200,7 @@ const createHutang = async (req, res) => {
    }
 };
 
- 
+
  const createBayarHutang = async (req, res) => {
    try {
      let body = req.body;
@@ -288,9 +295,6 @@ const createHutang = async (req, res) => {
      });
    }
 };
-
-
-
 
 
 

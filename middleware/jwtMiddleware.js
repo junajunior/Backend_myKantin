@@ -14,6 +14,7 @@ function adminMiddleware(req, res, next) {
         req.email = decoded.email;
         req.idAdmin = decoded.nama;
         req.idAdmin = decoded.id; 
+        req.idHutang = decoded.id; 
         next(); 
     })
 }

@@ -26,6 +26,10 @@ module.exports = (sequelize, DataTypes) => {
         as: "tb_transaksiPerHari",
         foreignKey: "idAdmin"
       })
+      user.hasOne(models.tb_hutang, {
+        as: "tb_hutang",
+        foreignKey: "idAdmin"
+      })
     }
   }
   user.init({

@@ -8,17 +8,17 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      idDetailHutang: {
-        type: Sequelize.INTEGER
-      },
       idHutang: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        references: {
+          model: "tb_hutangs",
+          key: "id",
+          as: "idHutang"
+        }
       },
       tanggalHutang: {
         type: Sequelize.DATE
-      },
-      idAdmin: {
-        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

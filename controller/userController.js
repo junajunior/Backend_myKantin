@@ -33,7 +33,7 @@ const login = async (req, res) => {
       },
       process.env.JWT_ACCESS_TOKEN,
       {
-        expiresIn: "1d",
+        expiresIn: "7d",
       }
     );
     return res.json({

@@ -10,13 +10,20 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      tb_hutang.hasOne(models.tb_detailHutang, {
+        as: "b_detailHutang",
+        foreignKey: "idHutang"
+      })
+      tb_hutang.belongsTo(models.user, {
+        as: "user",
+        foreignKey: "idAdmin"
+      })
     }
   }
   tb_hutang.init({
-    idHutang: DataTypes.INTEGER,
+    namaPenghutang: DataTypes.STRING,
     jumlahHutang: DataTypes.INTEGER,
-    namaPenghutang: DataTypes.STRING
+    idAdmin: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'tb_hutang',
