@@ -2,8 +2,15 @@ const ModelBarang = require("../models").tb_barang;
 const ModelBarangMasuk = require("../models").tb_barangMasuk;
 const ModelRequestBarangHabis = require("../models").tb_requestBarangHabis;
 var jwt = require("jsonwebtoken");
+const { Op } = require("sequelize");
 
 const createBarang = async (req, res) => {
+  // if(role != admin) {
+  //   res.json({
+  //     status: "gagal",
+  //     msg: "anda bukan admin",
+  //   });
+  // }
   try {
     const idAdmin = jwt.decode(req.headers.authorization.split(" ")[1]).id
     let body = req.body;
@@ -27,8 +34,14 @@ const createBarang = async (req, res) => {
 const ShowDataBarang = async (req, res) => {
   try {
     // const { keyword} = req.query
+    const { key } = req.query; 
     const dataBarang = await ModelBarang.findAll({
       attributes: ["id", "kodeBarang", "namaBarang", "jenisBarang", "hargaBarang", "idAdmin"],
+      where: { 
+        namaBarang: {
+          [Op.substring]:key
+        }
+       },
       // include:[{model:ModelUser}],
       // as : "users"
     });

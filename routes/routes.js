@@ -4,7 +4,7 @@ const { createHutang, showDataHutang, updateHutang, deleteHutang, showDataDetail
 const {   } = require("../controller/passwordController");
 const { createTransaksiPerHari, showDataTransaksiPerHari, updateTransaksiPerHari, deleteTransaksiPerHari } = require("../controller/transaksiController");
 const {login , userRegister, userShowData, userDetail, userDelete, userUpdate } = require("../controller/userController");
-const { adminMiddleware } = require("../middleware/jwtMiddleware");
+const { adminMiddleware, kasirMiddleware, ownerMiddleware } = require("../middleware/jwtMiddleware");
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -21,6 +21,8 @@ router.post("/create/users", userRegister );
 // router.post('/forgot-password' , forgotPassword);
 
 router.use(adminMiddleware);
+router.use(kasirMiddleware);
+router.use(ownerMiddleware);
 
 router.get("/data/users", userShowData );
 router.get('/data/users/:id' , userDetail );
@@ -28,7 +30,7 @@ router.delete("/data/users/delete/:id", userDelete );
 router.put("/data/users/update/:id", userUpdate ); 
 
 router.post("/create/barang", createBarang);
-router.get("/data/barang" , ShowDataBarang);
+router.get("/data/barang/" , ShowDataBarang);
 router.get("/data/barang/:id" , ShowDataDetailBarang);
 router.put("/update/barang/:id" , updateBarang );
 router.delete("/delete/barang/:id" , deleteBarang);
@@ -63,8 +65,6 @@ router.post("/create/bayar-hutang" , createBayarHutang);
 router.get("/data/bayar-hutang" , showDataBayarHutang);
 router.put("/update/bayar-hutang/:id" , updateBayarHutang);
 router.delete("/delete/bayar-hutang/:id" , deleteBayarHutang);
-
-
 
 module.exports = router;
 
