@@ -38,10 +38,21 @@ const ShowDataBarang = async (req, res) => {
     const dataBarang = await ModelBarang.findAll({
       attributes: ["id", "kodeBarang", "namaBarang", "jenisBarang", "hargaBarang", "idAdmin"],
       where: { 
-        namaBarang: {
-          [Op.substring]:key
-        }
-       },
+        ...(key !== undefined && { 
+          namaBarang: { 
+            [Op.substring]: key, 
+          }, 
+          jenisBarang: { 
+            [Op.substring]: key, 
+          }, 
+          hargaBarang: { 
+            [Op.substring]: key, 
+          }, 
+          kodeBarang: { 
+            [Op.substring]: key, 
+          }, 
+        }), 
+      },
       // include:[{model:ModelUser}],
       // as : "users"
     });
@@ -69,6 +80,7 @@ const ShowDataDetailBarang = async (req, res) => {
   try {
     const { id } = req.params;
     const dataDetailBarang = await ModelBarang.findByPk(id);
+    
     if (dataDetailBarang === null) {
       return res.status(402).json({
         status: "Gagal",
@@ -170,6 +182,16 @@ const showDataBarangMasuk = async (req, res) => {
   try {
     const dataBarangMasuk = await ModelBarangMasuk.findAll({
       attributes: ["id", "idBarangMasuk", "kodeBarang", "satuanBarang", "expiredBarang", "tanggalMasuk", "keterangan", "idAdmin"],
+      where: { 
+        ...(key !== undefined && { 
+          kodeBarang: { 
+            [Op.substring]: key, 
+          }, 
+          satuanBarang: { 
+            [Op.substring]: key, 
+          }, 
+        }), 
+      },
     });
     return res.json({
       status: "Berhasil",
@@ -267,7 +289,17 @@ const showDataPermintaanBarang = async (req, res) => {
   try {
     // const { keyword} = req.query
     const dataRequestBarangHabis = await ModelRequestBarangHabis.findAll({
-      attributes: ["id", "idPermintaan", "kodeBarang", "keterangan", "tanggalPermintaan", "idAdmin"]
+      attributes: ["id", "idPermintaan", "kodeBarang", "keterangan", "tanggalPermintaan", "idAdmin"],
+      where: { 
+        ...(key !== undefined && { 
+          kodeBarang: { 
+            [Op.substring]: key, 
+          }, 
+          keterangan: { 
+            [Op.substring]: key, 
+          }, 
+        }), 
+      },
     });
     return res.json({
       status: "Berhasil",

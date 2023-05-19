@@ -25,7 +25,14 @@ const createTransaksiPerHari = async (req, res) => {
 const showDataTransaksiPerHari = async (req, res) => {
   try {
     const dataTransaksiPerHari = await ModelTransaksiPerHari.findAll({
-      attributes: ["id", "idTransaksi", "pemasukan", "keterangan", "tanggalTransaksi", "idAdmin"]
+      attributes: ["id", "idTransaksi", "pemasukan", "keterangan", "tanggalTransaksi", "idAdmin"],
+      where: { 
+        ...(key !== undefined && { 
+          pemasukan: { 
+            [Op.substring]: key, 
+          }, 
+        }), 
+      },
     });
 
     return res.json({

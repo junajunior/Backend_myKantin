@@ -28,7 +28,17 @@ const createHutang = async (req, res) => {
    try {
      // const { keyword} = req.query
      const dataHutang = await ModelHutang.findAll({
-       attributes: ["id" , "namaPenghutang" , "jumlahHutang" , "idAdmin"]
+       attributes: ["id" , "namaPenghutang" , "jumlahHutang" , "idAdmin"],
+       where: { 
+        ...(key !== undefined && { 
+          namaPenghutang: { 
+            [Op.substring]: key, 
+          }, 
+          jumlahHutang: { 
+            [Op.substring]: key, 
+          }, 
+        }), 
+      },
      });
      return res.json({
        status: "Berhasil",
@@ -127,7 +137,14 @@ const createHutang = async (req, res) => {
    try {
      // const { keyword} = req.query
      const dataDetailHutang = await ModelDetailHutang.findAll({
-       attributes: ["id" ,"tanggalHutang", "idHutang"]
+       attributes: ["id" ,"tanggalHutang", "idHutang"],
+       where: { 
+        ...(key !== undefined && { 
+          tanggalHutang: { 
+            [Op.substring]: key, 
+          }, 
+        }), 
+      },
      });
      return res.json({
        status: "Berhasil",
@@ -223,7 +240,17 @@ const createHutang = async (req, res) => {
    try {
      // const { keyword} = req.query
      const dataDetailBayarHutang = await ModelBayarHutang.findAll({
-       attributes: ["id" ,"idBayar" , "idHutang" , "jumlahBayar" ,"tanggalBayar", "idAdmin"]
+       attributes: ["id" ,"idBayar" , "idHutang" , "jumlahBayar" ,"tanggalBayar", "idAdmin"],
+       where: { 
+        ...(key !== undefined && {  
+          jumlahBayar: { 
+            [Op.substring]: key, 
+          }, 
+          tanggalBayar: { 
+            [Op.substring]: key, 
+          },
+        }), 
+      },
      });
      return res.json({
        status: "Berhasil",
